@@ -1,0 +1,14 @@
+.navbar {    
+    background: #2C3E50;
+    .navbar-nav li a {
+      font-size: 1.8em !important;
+      color: #eee;
+      &:hover, &:focus, &:active {
+        color: #01C5FF;
+        background-color: transparent;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+      }
+    }
+  }
