@@ -1,4 +1,4 @@
-# Covid19India
+# Covid19India : https://sobhaniiest.github.io/Covid19-India/
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
 
