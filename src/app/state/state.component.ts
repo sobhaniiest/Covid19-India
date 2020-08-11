@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { DataFetchService } from 'src/app/data-fetch.service';
 import { DataModel } from 'src/app/data';
 import { Chart } from 'chart.js';
@@ -866,6 +866,11 @@ export class StateComponent implements OnInit {
     if (caseType == 'r'){
       this.title = 'Recovered Cases';
       this.datatable = this.recoveredtable;
+      this.createChart();
+    }
+    if (caseType == 'p'){
+      this.title = 'Active Cases';
+      this.datatable = this.activetable;
       this.createChart();
     }
   }

@@ -9,11 +9,6 @@ import { DataModel } from './data';
 export class DataFetchService {
 
   private DataUrl = `https://api.covid19india.org/csv/latest/state_wise_daily.csv`;
-
-  totalConfirmed : number;
-  totalRecovered : number;
-  totalDeceased : number;
-  totalActive : number;
   
   constructor(private http: HttpClient) { }
 
@@ -70,11 +65,8 @@ export class DataFetchService {
             UT : +cols[38],
             WB : +cols[39],
             UN : +cols[40]
-
           })
         })
-
-        //console.log(data);
         return data;
       })
     )

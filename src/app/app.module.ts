@@ -10,13 +10,15 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { IndiaComponent } from './india/india.component';
 import { StateComponent } from './state/state.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { DistrictComponent } from './district/district.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IndiaComponent,
     StateComponent,
-    NavigationBarComponent
+    NavigationBarComponent,
+    DistrictComponent
   ],
   imports: [
     BrowserModule,

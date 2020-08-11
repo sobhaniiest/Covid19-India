@@ -22,8 +22,11 @@
     "@angular/router": "~10.0.6",
     "@nebular/eva-icons": "6.0.0",
     "@nebular/theme": "^6.0.0",
+    "bootstrap": "^4.0.0-beta",
     "chart.js": "^2.9.3",
     "eva-icons": "^1.1.2",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"

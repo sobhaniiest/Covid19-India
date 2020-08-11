@@ -1,0 +1,57 @@
+<div class="jumbotron bgwhite text-center">
+    <h1 class="display-4">Visualize Covid-19 in All the Districts Accross India</h1>
+
+    <div class="mx-auto">
+        <div class="form-group col-lg-5 mx-auto">
+            <label for="c">Select State or Union Territory</label>
+            <select name="" class="form-control" id="c" #input (change)='getState(input.value)'>
+                <option value="{{s}}" *ngFor='let s of states'>{{s}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card col p-3 m-3 c">
+            <div class="ui blue inverted statistic">
+                <div class="label">
+                    <h3>Confirmed</h3>
+                </div>
+                <div class="value">
+                    {{totalConfirmed}}
+                </div>
+            </div>
+        </div>
+        <div class="card col p-3 m-3 r">
+            <div class="ui green inverted statistic">
+                <div class="label">
+                    <h3>Recovered</h3>
+                </div>
+                <div class="value">
+                    {{totalRecovered}}
+                </div>
+            </div>
+        </div>
+        <div class="card col p-3 m-3 d">
+            <div class="ui red inverted statistic">
+                <div class="label">
+                    <h3>Deceased</h3>
+                </div>
+                <div class="value">
+                    {{totalDeceased}}
+                </div>
+            </div>
+        </div>
+        <div class="card col p-3 m-3 a">
+            <div class="ui statistic">
+                <div class="label">
+                    <h3>Active</h3>
+                </div>
+                <div class="value">
+                    {{totalActive}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
