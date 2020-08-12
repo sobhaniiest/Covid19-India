@@ -2,40 +2,6 @@
     <h1 class="display-4">Visualize Covid-19 in All States and Union Territory</h1>
 </div>
 
-<div class="jumbotron bgwhite ui form">
-    <div class="inline fields">
-        <label for="fruit">Select Case Type : </label>
-        <div class="field">
-            <div class="ui radio checkbox">
-                <input id='a' #a type="radio" (click)='updateChart(a)' value='a' name="casetype" checked="" tabindex="0" class="hidden">
-                <label for='a'>Confirmed</label>
-            </div>
-        </div>
-        <div class="field">
-            <div class="ui radio checkbox">
-                <input type="radio" value='d' #d (click)='updateChart(d)' id='d' name="casetype" tabindex="0" class="hidden">
-                <label for='d'>Deceased</label>
-            </div>
-        </div>
-        <div class="field">
-            <div class="ui radio checkbox">
-                <input type="radio" value='r' #r (click)='updateChart(r)' id='r' name="casetype" tabindex="0" class="hidden">
-                <label for='r'>Recovered</label>
-            </div>
-        </div>
-        <div class="field">
-            <div class="ui radio checkbox">
-                <input type="radio" value='p' #p (click)='updateChart(p)' id='p' name="casetype" tabindex="0" class="hidden">
-                <label for='p'>Active</label>
-            </div>
-        </div>
-    </div>
-
-    <div>
-        <canvas id="pieChart"></canvas>
-    </div>
-</div>
-
 <div class="jumbotron bgwhite text-center">
     <div class="mx-auto">
         <div class="form-group col-lg-5 mx-auto">
@@ -68,7 +34,7 @@
             </div>
         </div>
         <div class="card col p-3 m-3 d">
-            <div class="ui red inverted statistic">
+            <div class="ui statistic">
                 <div class="label">
                     <h3>Deceased</h3>
                 </div>
@@ -78,12 +44,46 @@
             </div>
         </div>
         <div class="card col p-3 m-3 a">
-            <div class="ui statistic">
+            <div class="ui red inverted statistic">
                 <div class="label">
                     <h3>Active</h3>
                 </div>
                 <div class="value">
                     {{totalActive}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="display-4">Cases on Yesterday : {{lastday}}</h2>
+    <div class="row">
+        <div class="card col p-3 m-3 c">
+            <div class="ui blue inverted statistic">
+                <div class="label">
+                    <h3>Confirmed</h3>
+                </div>
+                <div class="value">
+                    {{lastdayConfirmed}}
+                </div>
+            </div>
+        </div>
+        <div class="card col p-3 m-3 r">
+            <div class="ui green inverted statistic">
+                <div class="label">
+                    <h3>Recovered</h3>
+                </div>
+                <div class="value">
+                    {{lastdayRecovered}}
+                </div>
+            </div>
+        </div>
+        <div class="card col p-3 m-3 d">
+            <div class="ui statistic">
+                <div class="label">
+                    <h3>Deceased</h3>
+                </div>
+                <div class="value">
+                    {{lastdayDeceased}}
                 </div>
             </div>
         </div>
@@ -137,15 +137,12 @@
                 <tr *ngFor='let d of date; index as i '>
                     <td>{{i+1}}</td>
                     <td>{{d}}</td>
-                    <td>{{con[si][+i]}}</td>
-                    <td>{{rec[si][+i]}}</td>
-                    <td>{{dec[si][+i]}}</td>
+                    <td>{{confirmedtable[si][+i]}}</td>
+                    <td>{{recoveredtable[si][+i]}}</td>
+                    <td>{{deceasedtable[si][+i]}}</td>
                 </tr>
             </tbody>
         </table>
     </div> 
 </div>
-
-
-
 
