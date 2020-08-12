@@ -10,6 +10,11 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { IndiaComponent } from './india/india.component';
 import { StateComponent } from './state/state.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelect } from '@angular/material/select';
+import { MatSort } from '@angular/material/sort';
+// import {MatSort} from '@angular/material/sort'; /** MatSort Not working : Fix it */
 
 @NgModule({
   declarations: [
@@ -25,7 +30,10 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
     NbThemeModule.forRoot({ name: 'default' }),
     NbLayoutModule,
     NbEvaIconsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule, 
+    MatPaginatorModule
+    // MatSort /** MatSort Not working : Fix it */
   ],
   providers: [],
   bootstrap: [AppComponent]

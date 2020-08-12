@@ -1,13 +1,30 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataFetchService } from 'src/app/data-fetch.service';
 import { Chart } from 'chart.js';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { TableElement, StateTableElement } from 'src/app/data';
+import {MatSort} from '@angular/material/sort'; /** MatSort Not working : Fix it */
 
 @Component({
   selector: 'app-state',
   templateUrl: './state.component.html',
   styleUrls: ['./state.component.scss']
 })
+
 export class StateComponent implements OnInit {
+
+  TableData: TableElement[] = []
+  StateTableData: StateTableElement[] = [] /** MatSort Not working : Fix it */
+
+  displayedColumns: string[] = ['position', 'date', 'confirmed', 'recovered', 'deceased'];
+  dataSource = new MatTableDataSource<TableElement>(this.TableData);
+
+  displayedCols: string[] = ['position', 'state', 'confirm', 'recover', 'decease', 'active']; /** MatSort Not working : Fix it */
+  dataS = new MatTableDataSource(this.StateTableData); /** MatSort Not working : Fix it */
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort; /** MatSort Not working : Fix it */
 
   totalConfirmed : number;
   totalRecovered : number;
@@ -56,6 +73,7 @@ export class StateComponent implements OnInit {
   constructor(private dataFetch: DataFetchService) { }
 
   ngOnInit(): void {
+    
     this.dataFetch.getTotalData()
       .subscribe({
           next : (result)=>{
@@ -92,7 +110,27 @@ export class StateComponent implements OnInit {
             this.lastdayDeceased = this.deceasedtable[1][this.index-1]
             this.lastday = this.date[this.index-1]
             this.initbarChart('x');
+            for (var i = 0; i < this.index; i++) {
+              this.TableData[i] = ({position: +i+1,
+                                    date: this.date[i],
+                                    confirmed: this.confirmedtable[1][i],
+                                    deceased: this.deceasedtable[1][i],
+                                    recovered: this.recoveredtable[1][i]})
+            }
+            this.dataSource.paginator = this.paginator;
 
+            /** MatSort Not working : Fix it */
+            for (var i = 0; i < 37; i++) {
+              this.StateTableData[i] = ({position: +i+1,
+                                        state: this.states[i],
+                                        confirm: this.StateTotalConfirmed[i],
+                                        decease: this.StateTotalDeceased[i],
+                                        recover: this.StateTotalRecovered[i],
+                                        active: this.StateTotalActive[i]})
+            }
+            this.dataS.paginator = this.paginator; /** MatSort Not working : Fix it */
+            this.dataS.sort = this.sort;
+            
           }
         }
       )
@@ -114,6 +152,14 @@ export class StateComponent implements OnInit {
         this.lastdayDeceased = this.deceasedtable[+index+1][this.index-1]
 
         this.initbarChart('x');
+        for (var i = 0; i < this.index; i++) {
+          this.TableData[i]=({position: +i+1,
+                                  date: this.date[+index+1],
+                                  confirmed: this.confirmedtable[+index+1][i],
+                                  deceased: this.deceasedtable[+index+1][i],
+                                  recovered: this.recoveredtable[+index+1][i]})
+        }
+        this.dataSource.paginator = this.paginator;
       }
     }
   }

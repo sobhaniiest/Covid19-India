@@ -1,13 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataFetchService } from 'src/app/data-fetch.service';
 import { Chart } from 'chart.js';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { TableElement } from 'src/app/data';
 
 @Component({
   selector: 'app-india',
   templateUrl: './india.component.html',
   styleUrls: ['./india.component.scss']
 })
+
 export class IndiaComponent implements OnInit {
+
+  TableData: TableElement[] = []
+
+  displayedColumns: string[] = ['position', 'date', 'confirmed', 'recovered', 'deceased'];
+  dataSource = new MatTableDataSource<TableElement>(this.TableData);
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   totalConfirmed = 0;
   totalRecovered = 0;
@@ -73,7 +84,7 @@ export class IndiaComponent implements OnInit {
             }
             this.totalConfirmed = 0;
             this.totalRecovered = 0;
-            this.totalDeceased = 0;
+            this.totalDeceased = 0; 
             this.totalActive = 0;
 
             this.index = +this.date.length
@@ -88,6 +99,7 @@ export class IndiaComponent implements OnInit {
             this.lastdayRecovered = this.recoveredtable[0][this.index-1]
             this.lastdayDeceased = this.deceasedtable[0][this.index-1]
             this.lastday = this.date[this.index-1]
+
 
             this.initBarChart('c');
 
@@ -104,6 +116,16 @@ export class IndiaComponent implements OnInit {
               this.coloR.push(this.dynamicColors());
             }
             this.initPieChart('u');
+            
+            for (var i = 0; i < this.index; i++) {
+              this.TableData[i]=({position: +i+1,
+                                      date: this.date[i],
+                                      confirmed: this.confirmedtable[0][i],
+                                      deceased: this.deceasedtable[0][i],
+                                      recovered: this.recoveredtable[0][i]})
+            }
+          
+            this.dataSource.paginator = this.paginator;
           }
         }
       )
