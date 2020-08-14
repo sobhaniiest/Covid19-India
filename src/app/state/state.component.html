@@ -133,31 +133,21 @@
     <h2 class="display-4">Daily Cases in {{st}}</h2>
     <div class="ui form">
         <div class="inline fields">
-            <label for="fruit">Select Case Type : </label>
-            <div class="field">
-                <div class="ui radio checkbox">
-                    <input type="radio" id='x' #x (click)='updatebarChart(x)' value="x" name="casetype" checked="" tabindex="0" class="hidden">
-                    <label for='x'>Confirmed</label>
-                </div>
+            <div>
+                <label id="example-radio-group-label">Select Case Type : </label>
             </div>
-            <div class="field">
-                <div class="ui radio checkbox">
-                    <input type="radio" value='y' #y (click)='updatebarChart(y)' id='y' name="casetype" tabindex="0" class="hidden">
-                    <label for='y'>Deceased</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui radio checkbox">
-                    <input type="radio" value='z' #z (click)='updatebarChart(z)' id='z' name="casetype" tabindex="0" class="hidden">
-                    <label for='z'>Recovered</label>
-                </div>
-            </div>
+            <mat-radio-group aria-label="Select an option">
+                <mat-radio-button id='x' #x (click)='updatebarChart(x)' value="x" name="casetype" checked="" tabindex="0" class="hidden">Confirmed</mat-radio-button>
+                <mat-radio-button value='y' #y (click)='updatebarChart(y)' id='y' name="casetype" tabindex="0" class="hidden">Deceased</mat-radio-button>
+                <mat-radio-button value='z' #z (click)='updatebarChart(z)' id='z' name="casetype" tabindex="0" class="hidden">Recovered</mat-radio-button>
+            </mat-radio-group>
         </div>
         <div>
             <canvas id="barChart"></canvas>
         </div>
     </div>
 </div>
+
 
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">

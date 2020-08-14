@@ -12,8 +12,8 @@ import { StateComponent } from './state/state.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSelect } from '@angular/material/select';
-import { MatSort } from '@angular/material/sort';
+import { MatRadioModule } from '@angular/material/radio';
+import { HighchartsChartModule } from "highcharts-angular";
 // import {MatSort} from '@angular/material/sort'; /** MatSort Not working : Fix it */
 
 @NgModule({
@@ -32,7 +32,9 @@ import { MatSort } from '@angular/material/sort';
     NbEvaIconsModule,
     HttpClientModule,
     MatTableModule, 
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatRadioModule,
+    HighchartsChartModule
     // MatSort /** MatSort Not working : Fix it */
   ],
   providers: [],

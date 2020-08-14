@@ -82,92 +82,51 @@
 
 <div class="jumbotron bgwhite ui form">
     <div class="inline fields">
-        <label class="f" for="fruit">Select Case Type : </label>
-        <div class="field">
-            <div class="f ui radio checkbox">
-                <input type="radio" id='c' #c (click)='updateBarChart(c)' value="c" name="casetype" checked="" tabindex="0" class="hidden">
-                <label for='c'>Confirmed</label>
-            </div>
+        <div>
+            <label id="example-radio-group-label">Select Case Type : </label>
         </div>
-        <div class="field">
-            <div class="ui radio checkbox">
-                <input type="radio" value='d' #d (click)='updateBarChart(d)' id='d' name="casetype" tabindex="0" class="hidden">
-                <label for='d'>Deceased</label>
-            </div>
-        </div>
-        <div class="field">
-            <div class="ui radio checkbox">
-                <input type="radio" value='r' #r (click)='updateBarChart(r)' id='r' name="casetype" tabindex="0" class="hidden">
-                <label for='r'>Recovered</label>
-            </div>
-        </div>
+        <mat-radio-group aria-label="Select an option">
+            <mat-radio-button id='c' #c (click)='updateBarChart(c)' value="c" name="casetype" checked="" tabindex="0" class="hidden">Confirmed</mat-radio-button>
+            <mat-radio-button value='d' #d (click)='updateBarChart(d)' id='d' name="casetype" tabindex="0" class="hidden">  Deceased</mat-radio-button>
+            <mat-radio-button value='r' #r (click)='updateBarChart(r)' id='r' name="casetype" tabindex="0" class="hidden">  Recovered</mat-radio-button>
+        </mat-radio-group>
     </div>
     <div>
         <canvas id="barChart"></canvas>
     </div>
 </div>
 
+
 <div class="jumbotron bgwhite ui form">
     <div class="inline fields">
-        <label for="fruit">Select Case Type : </label>
-        <div class="field">
-            <div class="ui radio checkbox">
-                <input id='u' #u type="radio" (click)='updatePieChart(u)' value='u' name="casetype" checked="" tabindex="0" class="hidden">
-                <label for='u'>Confirmed</label>
-            </div>
+        <div>
+            <label id="example-radio-group-label">Select Case Type : </label>
         </div>
-        <div class="field">
-            <div class="ui radio checkbox">
-                <input type="radio" value='v' #v (click)='updatePieChart(v)' id='v' name="casetype" tabindex="0" class="hidden">
-                <label for='v'>Deceased</label>
-            </div>
-        </div>
-        <div class="field">
-            <div class="ui radio checkbox">
-                <input type="radio" value='w' #w (click)='updatePieChart(w)' id='w' name="casetype" tabindex="0" class="hidden">
-                <label for='w'>Recovered</label>
-            </div>
-        </div>
-        <div class="field">
-            <div class="ui radio checkbox">
-                <input type="radio" value='p' #p (click)='updatePieChart(p)' id='p' name="casetype" tabindex="0" class="hidden">
-                <label for='p'>Active</label>
-            </div>
-        </div>
-    </div>
+        
+        <mat-radio-group aria-label="Select an option">
+            <mat-radio-button id='u' #u (click)='updatePieChart(u)' value='u' name="casetype" checked="" tabindex="0" class="hidden">Confirmed</mat-radio-button>
+            <mat-radio-button value='v' #v (click)='updatePieChart(v)' id='v' name="casetype" tabindex="0" class="hidden">Deceased</mat-radio-button>
+            <mat-radio-button value='w' #w (click)='updatePieChart(w)' id='w' name="casetype" tabindex="0" class="hidden">Recovered</mat-radio-button>
+            <mat-radio-button value='p' #p (click)='updatePieChart(p)' id='p' name="casetype" tabindex="0" class="hidden">Active</mat-radio-button>
+        </mat-radio-group>
 
+    </div>
     <div>
         <canvas id="pieChart"></canvas>
     </div>
+    <div class="jumbotron bgwhite text-center">
+    <article>
+        
+        <highcharts-chart
+          [Highcharts]="Highcharts"
+          [constructorType]="'mapChart'"
+          [options]="chartMap"
+      
+          style="width: 100%; height: 650px; display: block;"
+        ></highcharts-chart>
+    </article>
+    </div>
 </div>
-
-<!--
-<div class="jumbotron bgwhite row">
-    <div class="col">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Sno.</th>
-                    <th>Date</th>
-                    <th>Confirmed</th>
-                    <th>Recovered</th>
-                    <th>Deceased</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr *ngFor='let d of date; index as i '>
-                    <td>{{i+1}}</td>
-                    <td>{{d}}</td>
-                    <td>{{confirmedtable[0][+i]}}</td>
-                    <td>{{recoveredtable[0][+i]}}</td>
-                    <td>{{deceasedtable[0][+i]}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div> 
-</div>
--->
 
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
@@ -207,10 +166,4 @@
   
     <mat-paginator [pageSizeOptions]="[25, 50, 100]" showFirstLastButtons></mat-paginator>
   </div>
-
-
-
-
-
-
 
