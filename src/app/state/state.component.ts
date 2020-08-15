@@ -35,7 +35,7 @@ export class StateComponent implements OnInit {
 
   datatable = [];
   title = '';
-  BarChart = [];
+  BarChart;
 
   index : number;
   date = [];
@@ -170,7 +170,8 @@ export class StateComponent implements OnInit {
   }
 
   createbarChart() {
-    this.BarChart = []
+    if (this.BarChart != undefined)
+      this.BarChart.destroy();
     this.BarChart = new Chart('barChart', {
       type: 'bar',
       data: {

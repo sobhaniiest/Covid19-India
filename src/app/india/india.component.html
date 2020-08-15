@@ -148,6 +148,15 @@
     <div>
         <canvas id="pieChart"></canvas>
     </div>
+    <div class="myDiv">
+        <section>
+            <div class="example-button-row">
+              <button mat-stroked-button (click)='createPieChart(5)'>Top 5</button>
+              <button mat-stroked-button (click)='createPieChart(10)'>Top 10</button>
+              <button mat-stroked-button (click)='createPieChart(37)'>All</button>
+            </div>
+        </section>
+    </div>
 
     <article>
         
@@ -160,6 +169,14 @@
           class="jumbotron bgwhite"
         ></highcharts-chart>
     </article>
+    <!--
+    <h3 class="display-4">Daily Cases in {{st}}</h3>
+    <div class="ui form">
+        <div>
+            <canvas id="barChart"></canvas>
+        </div>
+    </div>
+    -->
 </div>
 
 

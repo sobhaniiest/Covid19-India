@@ -12,6 +12,7 @@ import proj4 from 'proj4';
 declare var require: any;
 
 HC_map(Highcharts);
+var myvar: number = 0;
 
 const worldMap = require('@highcharts/map-collection/countries/in/custom/in-all-disputed.geo.json');
 
@@ -27,13 +28,12 @@ export class IndiaComponent implements OnInit {
   Highcharts: typeof Highcharts = Highcharts;
   chartMap: Highcharts.Options;
   
-
   TableData: TableElement[] = []
   StateTableData: StateTableElement[] = []
 
   displayedColumns: string[] = ['position', 'date', 'confirmed', 'recovered', 'deceased'];
   dataSource = new MatTableDataSource<TableElement>(this.TableData);
-  displayedCols: string[] = ['position', 'state', 'confirm', 'recover', 'decease', 'active']; /** MatSort Not working : Fix it */
+  displayedCols: string[] = ['position', 'state', 'confirm', 'recover', 'decease', 'active'];
   dataS = new MatTableDataSource(this.StateTableData);
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -51,9 +51,12 @@ export class IndiaComponent implements OnInit {
 
   datatable = [];
   title = '';
-  PieChart = [];
-  BarChart = [];
+  PieChart;
+  BarChart;
   coloR = [];
+
+  st = 'Andaman and Nicobar Islands';
+  si : number = 1;
 
   index : number;
   date = [];
@@ -189,6 +192,17 @@ export class IndiaComponent implements OnInit {
       subtitle: {
         text: `Hover over the map and select case type to visualize the data state wise`
       },
+      plotOptions: {
+        series: {
+          point: {
+            events: {
+              mouseOver: function() {
+
+              }
+            }
+          }
+        }
+      },
       mapNavigation: {
         enabled: true,
         buttonOptions: {
@@ -214,42 +228,42 @@ export class IndiaComponent implements OnInit {
         },
         allAreas: false,
         data: [
-          ['madhya pradesh', this.datatable[20]],
-          ['uttar pradesh', this.datatable[34]],
-          ['karnataka', this.datatable[16]],
-          ['nagaland', this.datatable[25]],
-          ['bihar', this.datatable[4]],
-          ['lakshadweep', this.datatable[19]],
           ['andaman and nicobar', this.datatable[0]],
-          ['assam', this.datatable[3]],
-          ['west bengal', this.datatable[36]],
-          ['puducherry', this.datatable[27]],
-          ['daman and diu', this.datatable[8]],
-          ['gujarat', this.datatable[11]],
-          ['rajasthan', this.datatable[29]],
-          ['dadara and nagar havelli', this.datatable[7]],
-          ['chhattisgarh', this.datatable[6]],
-          ['tamil nadu', this.datatable[31]],
-          ['chandigarh', this.datatable[5]],
-          ['punjab', this.datatable[28]],
-          ['haryana', this.datatable[12]],
           ['andhra pradesh', this.datatable[1]],
-          ['maharashtra', this.datatable[21]],
-          ['himachal pradesh', this.datatable[13]],
-          ['meghalaya', this.datatable[23]],
-          ['kerala', this.datatable[17]],
-          ['telangana', this.datatable[32]],
-          ['mizoram', this.datatable[24]],
-          ['tripura', this.datatable[33]],
-          ['manipur', this.datatable[22]],
           ['arunanchal pradesh', this.datatable[2]],
-          ['jharkhand', this.datatable[15]],
-          ['goa', this.datatable[10]],
+          ['assam', this.datatable[3]],  
+          ['bihar', this.datatable[4]],
+          ['chandigarh', this.datatable[5]],
+          ['chhattisgarh', this.datatable[6]],
+          ['dadara and nagar havelli', this.datatable[7]],
+          ['daman and diu', this.datatable[8]],
           ['nct of delhi', this.datatable[9]],
-          ['odisha', this.datatable[26]],
+          ['goa', this.datatable[10]],
+          ['gujarat', this.datatable[11]],
+          ['haryana', this.datatable[12]],
+          ['himachal pradesh', this.datatable[13]],
           ['jammu and kashmir', this.datatable[14]],
+          ['jharkhand', this.datatable[15]],
+          ['karnataka', this.datatable[16]],
+          ['kerala', this.datatable[17]],
+          ['lakshadweep', this.datatable[19]],
+          ['madhya pradesh', this.datatable[20]],
+          ['maharashtra', this.datatable[21]],
+          ['manipur', this.datatable[22]],
+          ['meghalaya', this.datatable[23]],
+          ['mizoram', this.datatable[24]],
+          ['nagaland', this.datatable[25]],
+          ['odisha', this.datatable[26]],
+          ['puducherry', this.datatable[27]],
+          ['punjab', this.datatable[28]],
+          ['rajasthan', this.datatable[29]],
           ['sikkim', this.datatable[30]],
-          ['uttarakhand', this.datatable[35]]
+          ['tamil nadu', this.datatable[31]],
+          ['telangana', this.datatable[32]],
+          ['tripura', this.datatable[33]],
+          ['uttar pradesh', this.datatable[34]],
+          ['uttarakhand', this.datatable[35]],
+          ['west bengal', this.datatable[36]]
         ]
       } as Highcharts.SeriesMapOptions]
       /*{
@@ -280,11 +294,40 @@ export class IndiaComponent implements OnInit {
         ]
       } as Highcharts.SeriesMappointOptions*/
     };
-
-
-
+    
   }
 
+  
+  createChart() {
+    this.BarChart = []
+    this.BarChart = new Chart('barChart', {
+      type: 'bar',
+      data: {
+      labels: this.date,
+      datasets: [{
+          label: 'No. of Cases',
+          data: this.datatable,
+          backgroundColor: 'rgba(54, 162, 245, 0.2)',
+          borderColor: 'rgba(54, 162, 255, 1)',
+          borderWidth: 1
+        }]
+      }, 
+      options: {
+      title:{
+          text:this.title,
+          display:true
+      },
+      scales: {
+          yAxes: [{
+              ticks: {
+                  beginAtZero:true
+              }
+          }]
+        }
+      }
+    });
+  }
+  
 
   updateBarChart(input: HTMLInputElement) {
     this.initBarChart(input.value)
@@ -310,7 +353,8 @@ export class IndiaComponent implements OnInit {
   }
 
   createBarChart() {
-    this.BarChart = []
+    if (this.BarChart != undefined)
+      this.BarChart.destroy();
     this.BarChart = new Chart('barChart', {
       type: 'bar',
       data: {
@@ -349,22 +393,22 @@ export class IndiaComponent implements OnInit {
     if (caseType == 'u'){
       this.title = 'Confirmed Cases';
       this.datatable = this.StateTotalConfirmed;
-      this.createPieChart();
+      this.createPieChart(5);
     }
     if (caseType == 'v'){
       this.title = 'Deceased Cases';
       this.datatable = this.StateTotalDeceased;
-      this.createPieChart();
+      this.createPieChart(5);
     }
     if (caseType == 'w'){
       this.title = 'Recovered Cases';
       this.datatable = this.StateTotalRecovered;
-      this.createPieChart();
+      this.createPieChart(5);
     }
     if (caseType == 'p'){
       this.title = 'Active Cases';
       this.datatable = this.StateTotalActive;
-      this.createPieChart();
+      this.createPieChart(5);
     }
   }
 
@@ -375,16 +419,51 @@ export class IndiaComponent implements OnInit {
     return "rgb(" + r + "," + g + "," + b + ")";
   }
 
-  createPieChart() {
-    this.PieChart = []
+  createPieChart(caseType: number) {
+    var tmp = []
+    var sst = []
+    var tab = []
+    var index : number;
+    var nm : number = 0;
+    var n : number = caseType;
+
+    for (var i = 0; i < 37; i++) {
+      tmp[i] = this.datatable[i]
+    }
+    for (var i = 0; i < 37; i++) {
+      if (nm <= tmp[i]) {
+        nm = tmp[i];
+        index = +i;
+      }
+    }
+    tmp[index] = -1;
+    sst[0] = this.states[index]
+    tab[0] = nm
+
+    for (var i = 1; i < 37; i++) { 
+      nm = 0;
+      for (var j = 0; j < 37; j++) { 
+        if (nm <= tmp[j]) {
+          nm = tmp[j];
+          index = +j;
+        }
+      }
+      tmp[index] = -1;
+      sst[i] = this.states[index]
+      tab[i] = nm
+    }
+
+    if (this.PieChart != undefined)
+      this.PieChart.destroy();
+
     this.PieChart = new Chart('pieChart', {
       type: 'pie',
       data: {
-      labels: this.states,
+      labels: sst.slice(0, n),
       datasets: [{
           label: 'No. of Cases',
-          data: this.datatable,
-          backgroundColor: this.coloR,
+          data: tab.slice(0, n),
+          backgroundColor: this.coloR.slice(0, n),
           borderColor: 'rgba(200, 200, 200, 0.75)',
           hoverBorderColor: 'rgba(200, 200, 200, 1)',
           borderWidth: 1

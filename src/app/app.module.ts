@@ -15,6 +15,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
 import { HighchartsChartModule } from "highcharts-angular";
 import { MatSortModule } from '@angular/material/sort'; 
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatPaginatorModule,
     MatRadioModule,
     HighchartsChartModule,
-    MatSortModule 
+    MatSortModule, 
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
