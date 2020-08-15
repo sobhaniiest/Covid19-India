@@ -3,8 +3,7 @@ import { DataFetchService } from 'src/app/data-fetch.service';
 import { Chart } from 'chart.js';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { TableElement, StateTableElement } from 'src/app/data';
-import {MatSort} from '@angular/material/sort'; /** MatSort Not working : Fix it */
+import { TableElement } from 'src/app/data';
 
 @Component({
   selector: 'app-state',
@@ -15,16 +14,11 @@ import {MatSort} from '@angular/material/sort'; /** MatSort Not working : Fix it
 export class StateComponent implements OnInit {
 
   TableData: TableElement[] = []
-  StateTableData: StateTableElement[] = [] /** MatSort Not working : Fix it */
 
   displayedColumns: string[] = ['position', 'date', 'confirmed', 'recovered', 'deceased'];
   dataSource = new MatTableDataSource<TableElement>(this.TableData);
 
-  displayedCols: string[] = ['position', 'state', 'confirm', 'recover', 'decease', 'active']; /** MatSort Not working : Fix it */
-  dataS = new MatTableDataSource(this.StateTableData); /** MatSort Not working : Fix it */
-
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort; /** MatSort Not working : Fix it */
 
   totalConfirmed : number;
   totalRecovered : number;
@@ -118,18 +112,6 @@ export class StateComponent implements OnInit {
                                     recovered: this.recoveredtable[1][i]})
             }
             this.dataSource.paginator = this.paginator;
-
-            /** MatSort Not working : Fix it */
-            for (var i = 0; i < 37; i++) {
-              this.StateTableData[i] = ({position: +i+1,
-                                        state: this.states[i],
-                                        confirm: this.StateTotalConfirmed[i],
-                                        decease: this.StateTotalDeceased[i],
-                                        recover: this.StateTotalRecovered[i],
-                                        active: this.StateTotalActive[i]})
-            }
-            this.dataS.paginator = this.paginator; /** MatSort Not working : Fix it */
-            this.dataS.sort = this.sort;
             
           }
         }

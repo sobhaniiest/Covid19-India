@@ -3,10 +3,10 @@ import { DataFetchService } from 'src/app/data-fetch.service';
 import { Chart } from 'chart.js';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { TableElement } from 'src/app/data';
+import { TableElement, StateTableElement } from 'src/app/data';
+import { MatSort } from '@angular/material/sort';
 import * as Highcharts from 'highcharts';
 import HC_map from 'highcharts/modules/map';
-// import worldMap from "@highcharts/map-collection/custom/world.geo.json";
 import proj4 from 'proj4';
 
 declare var require: any;
@@ -29,11 +29,15 @@ export class IndiaComponent implements OnInit {
   
 
   TableData: TableElement[] = []
+  StateTableData: StateTableElement[] = []
 
   displayedColumns: string[] = ['position', 'date', 'confirmed', 'recovered', 'deceased'];
   dataSource = new MatTableDataSource<TableElement>(this.TableData);
+  displayedCols: string[] = ['position', 'state', 'confirm', 'recover', 'decease', 'active']; /** MatSort Not working : Fix it */
+  dataS = new MatTableDataSource(this.StateTableData);
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   totalConfirmed = 0;
   totalRecovered = 0;
@@ -139,9 +143,17 @@ export class IndiaComponent implements OnInit {
                                       deceased: this.deceasedtable[0][i],
                                       recovered: this.recoveredtable[0][i]})
             }
-          
             this.dataSource.paginator = this.paginator;
-      
+
+            for (var i = 0; i < 37; i++) {
+              this.StateTableData[i] = ({position: +i+1,
+                                        state: this.states[i],
+                                        confirm: this.StateTotalConfirmed[i],
+                                        decease: this.StateTotalDeceased[i],
+                                        recover: this.StateTotalRecovered[i],
+                                        active: this.StateTotalActive[i]})
+            }   
+            this.dataS.sort = this.sort;
           }
         }
       )
@@ -175,9 +187,7 @@ export class IndiaComponent implements OnInit {
         text: 'India'
       },
       subtitle: {
-        text: ``
-        //`Selected Canadian cities were marked using their lat/lon coordinates.<br>
-        //Source map: <a href="http://code.highcharts.com/mapdata/custom/world.js">World, Miller projection, medium resolution</a>.`
+        text: `Hover over the map and select case type to visualize the data state wise`
       },
       mapNavigation: {
         enabled: true,
@@ -270,8 +280,6 @@ export class IndiaComponent implements OnInit {
         ]
       } as Highcharts.SeriesMappointOptions*/
     };
-
-
 
 
 

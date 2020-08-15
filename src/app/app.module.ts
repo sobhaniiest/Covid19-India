@@ -14,7 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
 import { HighchartsChartModule } from "highcharts-angular";
-// import {MatSort} from '@angular/material/sort'; /** MatSort Not working : Fix it */
+import { MatSortModule } from '@angular/material/sort'; 
 
 @NgModule({
   declarations: [
@@ -34,8 +34,8 @@ import { HighchartsChartModule } from "highcharts-angular";
     MatTableModule, 
     MatPaginatorModule,
     MatRadioModule,
-    HighchartsChartModule
-    // MatSort /** MatSort Not working : Fix it */
+    HighchartsChartModule,
+    MatSortModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
