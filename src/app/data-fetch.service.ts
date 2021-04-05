@@ -44,18 +44,18 @@ export class DataFetchService {
           let cols = row.split(',')
 
           if (this.d%3 == 0)
-          this.date.push(cols[0])
+          this.date.push(cols[1])
 
           this.d += 1;
 
           for (var i = 0; i < 38; i++) {
-            if(cols[1] === "Confirmed") {
-              this.confirmedtable[i].push(+cols[i+2])
+            if(cols[2] === "Confirmed") {
+              this.confirmedtable[i].push(+cols[i+3])
             }
-            else if (cols[1] === "Recovered") {
-              this.recoveredtable[i].push(+cols[i+2])
+            else if (cols[2] === "Recovered") {
+              this.recoveredtable[i].push(+cols[i+3])
             } else {
-                this.deceasedtable[i].push(+cols[i+2])
+                this.deceasedtable[i].push(+cols[i+3])
             }
           }
         })
