@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  cache: 'this is 1st attempt for qa'
+  cache: 'this is 2nd attempt for qa'
 };
 
 /*
