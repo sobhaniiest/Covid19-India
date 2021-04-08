@@ -8,6 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import * as Highcharts from 'highcharts';
 import HC_map from 'highcharts/modules/map';
 import proj4 from 'proj4';
+import { environment } from '../../environments/environment';
 
 declare var require: any;
 
@@ -24,7 +25,7 @@ const worldMap = require('@highcharts/map-collection/countries/in/custom/in-all-
 })
 
 export class IndiaComponent implements OnInit {
-
+  env = environment.production;
   Highcharts: typeof Highcharts = Highcharts;
   chartMap: Highcharts.Options;
   
@@ -88,6 +89,7 @@ export class IndiaComponent implements OnInit {
   constructor(private dataFetch: DataFetchService) { }
 
   ngOnInit(): void {
+    console.log('Environment --->  ' + this.env);
     this.dataFetch.getTotalData()
       .subscribe({
           next : (result)=>{
