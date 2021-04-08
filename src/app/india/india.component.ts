@@ -25,7 +25,7 @@ const worldMap = require('@highcharts/map-collection/countries/in/custom/in-all-
 })
 
 export class IndiaComponent implements OnInit {
-  env = environment.production;
+  env = environment.cache;
   Highcharts: typeof Highcharts = Highcharts;
   chartMap: Highcharts.Options;
   
