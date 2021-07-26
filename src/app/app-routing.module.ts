@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+
 import { IndiaComponent } from './india/india.component';
-import { StateComponent } from './state/state.component';
+import { StatesComponent } from './states/states.component';
 
 const routes: Routes = [
   {path : '' , component : IndiaComponent},
-  {path : 'State' , component :StateComponent }
+  {path : 'states' , component :StatesComponent }
 ];
 
 @NgModule({

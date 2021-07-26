@@ -1,221 +1,200 @@
-<div class="jumbotron bgwhite text-center">
-    <h1 class="display-4">Visualize Covid-19 in India</h1>
- 
-    <h2 class="display-4">Total Cases</h2>
-    <div class="row md-display-3">
-        <div class="jumbotron bgwhite card col p-3 c">
-            <div class="ui blue inverted statistic ">
-                <div class="label">
-                    <h4>Confirmed</h4>
-                </div>
-                <div class="value">
-                    {{totalConfirmed}}
-                </div>
-            </div>
+<div class="jumbotron bgwhite text-center india">
+    <h1>
+        <b>Visualize Covid-19 in India</b>
+    </h1>
+    <br>
+    <h2>
+        <b>Total Cases</b>
+    </h2>
+
+    <div class="row body">
+        <div class="col-md-3 col-sm-6 col-12 text-center">
+            <mat-card class="confirmed">
+                <h2><b>CONFIRMED</b></h2>
+                <br>
+                <h1 class="confirmed-color"><b>{{dataShow?.totalConfirmed[0]}}</b></h1>
+            </mat-card>
         </div>
-        <div class="jumbotron bgwhite card col p-3 r">
-            <div class="ui green inverted statistic">
-                <div class="label">
-                    <h4>Recovered</h4>
-                </div>
-                <div class="value">
-                    {{totalRecovered}}
-                </div>
-            </div>
+        <div class="col-md-3 col-sm-6 col-12 text-center">
+            <mat-card class="recovered">
+                <h2><b>RECOVERED</b></h2>
+                <br>
+                <h1 class="recovered-color"><b>{{dataShow?.totalRecovered[0]}}</b></h1>
+            </mat-card>
         </div>
-        <div class="jumbotron bgwhite card col p-3 d">
-            <div class="ui statistic">
-                <div class="label">
-                    <h4>Deceased</h4>
-                </div>
-                <div class="value">
-                    {{totalDeceased}}
-                </div>
-            </div>
+        <div class="col-md-3 col-sm-6 col-12 text-center">
+            <mat-card class="deceased">
+                <h2><b>DECEASED</b></h2>
+                <br>
+                <h1 class="deceased-color"><b>{{dataShow?.totalDeceased[0]}}</b></h1>
+            </mat-card>
         </div>
-        <div class="jumbotron bgwhite card col p-3 a">
-            <div class="ui red inverted statistic">
-                <div class="label">
-                    <h4>Active</h4>
-                </div>
-                <div class="value">
-                    {{totalActive}}
-                </div>
-            </div>
+        <div class="col-md-3 col-sm-6 col-12 text-center">
+            <mat-card class="active">
+                <h2><b>ACTIVE</b></h2>
+                <br>
+                <h1 class="active-color"><b>{{dataShow?.totalActive[0]}}</b></h1>
+            </mat-card>
         </div>
     </div>
-
-    <h2 class="display-4">Cases on Yesterday : {{lastday}}</h2>
-    <div class="row">
-        <div class="jumbotron bgwhite card col  c">
-            <div class="ui blue inverted statistic">
-                <div class="label">
-                    <h4>Confirmed</h4>
-                </div>
-                <div class="value">
-                    {{lastdayConfirmed}}
-                </div>
-            </div>
+    <h2>
+        <b>Cases on Yesterday: {{dataShow?.date[index] | date}}</b>
+    </h2>
+    <div class="row body">
+        <div class="col-md-4 col-sm-4 col-12 text-center">
+            <mat-card class="confirmed">
+                <h2><b>CONFIRMED</b></h2>
+                <br>
+                <h1 class="confirmed-color"><b>{{dataShow?.states[0]?.confirmed[index]}}</b></h1>
+            </mat-card>
         </div>
-        <div class="jumbotron bgwhite card col  r">
-            <div class="ui green inverted statistic">
-                <div class="label">
-                    <h4>Recovered</h4>
-                </div>
-                <div class="value">
-                    {{lastdayRecovered}}
-                </div>
-            </div>
+        <div class="col-md-4 col-sm-4 col-12 text-center">
+            <mat-card class="recovered">
+                <h2><b>RECOVERED</b></h2>
+                <br>
+                <h1 class="recovered-color"><b>{{dataShow?.states[0]?.recovered[index]}}</b></h1>
+            </mat-card>
         </div>
-        <div class="jumbotron bgwhite card col  d">
-            <div class="ui statistic">
-                <div class="label">
-                    <h4>Deceased</h4>
-                </div>
-                <div class="value">
-                    {{lastdayDeceased}}
-                </div>
-            </div>
+        <div class="col-md-4 col-sm-4 col-12 text-center">
+            <mat-card class="deceased">
+                <h2><b>DECEASED</b></h2>
+                <br>
+                <h1 class="deceased-color"><b>{{dataShow?.states[0]?.deceased[index]}}</b></h1>
+            </mat-card>
         </div>
     </div>
-
-    <div class="inline fields">
-        <div>
-            <label id="example-radio-group-label">Select Case Type : </label>
+    <h2>
+        <b>{{title}} in India</b>
+    </h2>
+    <div class="row body">
+        <div class="col-md-12 com-sm-12 col-12">
+            <mat-radio-group aria-label="Select an option">
+                <mat-radio-button value="confirmed" color="primary" (click)="updateBarChart('Confirmed')" [checked]="true">Confirmed</mat-radio-button>
+                <mat-radio-button value="recovered" color="primary" (click)="updateBarChart('Recovered')">Recovered</mat-radio-button>
+                <mat-radio-button value="deceased" color="primary" (click)="updateBarChart('Deceased')">Deceased</mat-radio-button>
+            </mat-radio-group>
         </div>
-        <mat-radio-group aria-label="Select an option">
-            <mat-radio-button id='c' #c (click)='updateBarChart(c)' value="c" name="casetype" checked="" tabindex="0" class="hidden">Confirmed</mat-radio-button>
-            <mat-radio-button value='d' #d (click)='updateBarChart(d)' id='d' name="casetype" tabindex="0" class="hidden">  Deceased</mat-radio-button>
-            <mat-radio-button value='r' #r (click)='updateBarChart(r)' id='r' name="casetype" tabindex="0" class="hidden">  Recovered</mat-radio-button>
-        </mat-radio-group>
-    </div>
-    <div>
-        <canvas id="barChart"></canvas>
-    </div>
-</div>
-
-<div class="mat-elevation-z8">
-    <h2 class="display-4 text-center">Date Wise Cases in India</h2>
-    <table mat-table [dataSource]="dataSource">
-  
-        <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef> No. </th>
-            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef> Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.date}} </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="confirmed">
-            <th mat-header-cell *matHeaderCellDef> Confirmed </th>
-            <td mat-cell *matCellDef="let element"> {{element.confirmed}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="deceased">
-            <th mat-header-cell *matHeaderCellDef> Deceased </th>
-            <td mat-cell *matCellDef="let element"> {{element.deceased}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="recovered">
-            <th mat-header-cell *matHeaderCellDef> Recovered </th>
-            <td mat-cell *matCellDef="let element"> {{element.recovered}} </td>
-        </ng-container>
-  
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  
-    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
-</div>
-
-<div class="jumbotron bgwhite text-center">
-    <h2 class="display-4 text-center">State Wise Cases in India</h2>
-    <div class="inline fields">
-        <div>
-            <label id="example-radio-group-label">Select Case Type : </label>
-        </div>
-        
-        <mat-radio-group aria-label="Select an option">
-            <mat-radio-button id='u' #u (click)='updatePieChart(u)' value='u' name="casetype" checked="" tabindex="0" class="hidden">Confirmed</mat-radio-button>
-            <mat-radio-button value='v' #v (click)='updatePieChart(v)' id='v' name="casetype" tabindex="0" class="hidden">Deceased</mat-radio-button>
-            <mat-radio-button value='w' #w (click)='updatePieChart(w)' id='w' name="casetype" tabindex="0" class="hidden">Recovered</mat-radio-button>
-            <mat-radio-button value='p' #p (click)='updatePieChart(p)' id='p' name="casetype" tabindex="0" class="hidden">Active</mat-radio-button>
-        </mat-radio-group>
-
-    </div>
-    <div>
-        <canvas id="pieChart"></canvas>
-    </div>
-    <div class="myDiv">
-        <section>
-            <div class="example-button-row">
-              <button mat-stroked-button (click)='createPieChart(5)'>Top 5</button>
-              <button mat-stroked-button (click)='createPieChart(10)'>Top 10</button>
-              <button mat-stroked-button (click)='createPieChart(37)'>All</button>
-            </div>
-        </section>
-    </div>
-
-    <article>
-        
-        <highcharts-chart
-          [Highcharts]="Highcharts"
-          [constructorType]="'mapChart'"
-          [options]="chartMap"
-      
-          style="width: 100%; height: 650px; display: block;"
-          class="jumbotron bgwhite"
-        ></highcharts-chart>
-    </article>
-    <!--
-    <h3 class="display-4">Daily Cases in {{st}}</h3>
-    <div class="ui form">
-        <div>
+        <div class="col-md-12 com-sm-12 col-12">
             <canvas id="barChart"></canvas>
         </div>
     </div>
-    -->
+
+    <h2>
+        <b>Date Wise Cases in India</b>
+    </h2>
+    <div class="row body">
+        <div class="col-md-12 col-sm-12 col-12">
+            <div class="mat-elevation-z8 text-left">
+                <table mat-table [dataSource]="dateWiseCasesTableSource" matSort>
+
+                  <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef> Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="confirmed">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Confirmed </th>
+                    <td mat-cell *matCellDef="let element"> {{element.confirmed}} </td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="recovered">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Recovered </th>
+                    <td mat-cell *matCellDef="let element"> {{element.recovered}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="deceased">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Deceased </th>
+                    <td mat-cell *matCellDef="let element"> {{element.deceased}} </td>
+                  </ng-container>
+              
+                  <tr mat-header-row *matHeaderRowDef="dateWiseCasesTable"></tr>
+                  <tr mat-row *matRowDef="let row; columns: dateWiseCasesTable;"></tr>
+                </table>
+              
+                <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+              </div>
+        </div>
+    </div>
+
+    <h2>
+        <b>State Wise Cases in India</b>
+    </h2>
+    <div class="row body">
+        <div class="col-md-12 com-sm-12 col-12">
+            <button mat-stroked-button class="btn-piBlock" color="primary" (click)="updatePieChart('', 5)" [ngClass]="{'btn-piechart': piBlock == 5}"> Top 5 </button>
+            <button mat-stroked-button class="btn-piBlock" color="primary" (click)="updatePieChart('', 10)" [ngClass]="{'btn-piechart': piBlock == 10}"> Top 10 </button>
+            <button mat-stroked-button class="btn-piBlock" color="primary" (click)="updatePieChart('', 37)" [ngClass]="{'btn-piechart': piBlock == 37}"> All </button>
+        </div>
+        <div class="col-md-12 com-sm-12 col-12">
+            <mat-radio-group aria-label="Select an option">
+                <mat-radio-button value="confirmed" color="primary" (click)="updatePieChart('Confirmed', 0)" [checked]="true">Confirmed</mat-radio-button>
+                <mat-radio-button value="recovered" color="primary" (click)="updatePieChart('Recovered', 0)">Recovered</mat-radio-button>
+                <mat-radio-button value="deceased" color="primary" (click)="updatePieChart('Deceased', 0)">Deceased</mat-radio-button>
+                <mat-radio-button value="Active" color="primary" (click)="updatePieChart('Active', 0)">Active</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="col-md-12 col-sm-12 col-12">
+            <canvas id="pieChart"></canvas>
+        </div>
+        <div class="col-md-12 col-sm-12 col-12">
+            <article>
+                <highcharts-chart
+                  [Highcharts]="Highcharts"
+                  [constructorType]="'mapChart'"
+                  [options]="chartMap"
+              
+                  style="width: 100%; height: 650px; display: block;"
+                  class="jumbotron bgwhite"
+                ></highcharts-chart>
+            </article>
+        </div>
+        <div class="col-md-12 col-sm-12 col-12">
+            <div class="mat-elevation-z8 text-left">
+                <table mat-table [dataSource]="stateWiseCasesTableSource" matSort>
+
+                  <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="state">
+                    <th mat-header-cell *matHeaderCellDef> State </th>
+                    <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="confirmed">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Confirmed </th>
+                    <td mat-cell *matCellDef="let element"> {{element.confirmed}} </td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="recovered">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Recovered </th>
+                    <td mat-cell *matCellDef="let element"> {{element.recovered}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="deceased">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Deceased </th>
+                    <td mat-cell *matCellDef="let element"> {{element.deceased}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="active">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Active </th>
+                    <td mat-cell *matCellDef="let element"> {{element.active}} </td>
+                  </ng-container>
+              
+                  <tr mat-header-row *matHeaderRowDef="stateWiseCasesTable"></tr>
+                  <tr mat-row *matRowDef="let row; columns: stateWiseCasesTable;"></tr>
+                </table>
+            
+              </div>
+        </div>
+    </div>
+
 </div>
 
-
-    <table mat-table [dataSource]="dataS" matSort class="mat-elevation-z8">
-        
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="state">
-      <th mat-header-cell *matHeaderCellDef> State </th>
-      <td mat-cell *matCellDef="let element"> {{element.state}} </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="confirm">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Confirmed </th>
-      <td mat-cell *matCellDef="let element"> {{element.confirm}} </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="recover">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Recovered </th>
-      <td mat-cell *matCellDef="let element"> {{element.recover}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="decease">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Deceased </th>
-        <td mat-cell *matCellDef="let element"> {{element.decease}} </td>
-      </ng-container>
-    
-      <ng-container matColumnDef="active">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Active </th>
-        <td mat-cell *matCellDef="let element"> {{element.active}} </td>
-      </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedCols"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedCols;"></tr>
-  </table>
-
-
-  
 

@@ -1,0 +1,26 @@
+.header {
+    background-color: #343a40;
+    color: white;
+    text-align: left;
+    padding: 10px 60px;
+}
+
+h2 {
+    margin-bottom: 0px;
+}
+
+.menu-india, .menu-states {
+    text-decoration: underline;
+}
+
+.menu-india:hover, .menu-states:hover {
+    cursor: pointer;
+    color: #54c8ff;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        text-align: center;
+    }
+}

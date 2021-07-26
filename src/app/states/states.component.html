@@ -1,0 +1,135 @@
+<div class="jumbotron bgwhite text-center state">
+    <h1>
+        <b>Visualize Covid-19 in All States and Union Territories</b>
+    </h1>
+    <br>
+    <mat-form-field appearance="outline" class="state-select-dropdown">
+        <mat-label>Select State or Union Territory</mat-label>
+        <mat-select [(ngModel)]="state" (selectionChange)="onStateChange()">
+        <div *ngFor="let s of states;">
+          <mat-option [value]="s">{{s}}</mat-option>
+        </div>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <h2>
+        <b>Total Cases in {{state}}</b>
+    </h2>
+
+    <div class="row body">
+        <div class="col-md-3 col-sm-6 col-12 text-center">
+            <mat-card class="confirmed">
+                <h2><b>CONFIRMED</b></h2>
+                <br>
+                <h1 class="confirmed-color"><b>{{dataShow?.totalConfirmed[stateIndex]}}</b></h1>
+            </mat-card>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12 text-center">
+            <mat-card class="recovered">
+                <h2><b>RECOVERED</b></h2>
+                <br>
+                <h1 class="recovered-color"><b>{{dataShow?.totalRecovered[stateIndex]}}</b></h1>
+            </mat-card>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12 text-center">
+            <mat-card class="deceased">
+                <h2><b>DECEASED</b></h2>
+                <br>
+                <h1 class="deceased-color"><b>{{dataShow?.totalDeceased[stateIndex]}}</b></h1>
+            </mat-card>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12 text-center">
+            <mat-card class="active">
+                <h2><b>ACTIVE</b></h2>
+                <br>
+                <h1 class="active-color"><b>{{dataShow?.totalActive[stateIndex]}}</b></h1>
+            </mat-card>
+        </div>
+    </div>
+    <h2>
+        <b>Cases on Yesterday: {{dataShow?.date[index] | date}}</b>
+    </h2>
+    <div class="row body">
+        <div class="col-md-4 col-sm-4 col-12 text-center">
+            <mat-card class="confirmed">
+                <h2><b>CONFIRMED</b></h2>
+                <br>
+                <h1 class="confirmed-color"><b>{{dataShow?.states[stateIndex]?.confirmed[index]}}</b></h1>
+            </mat-card>
+        </div>
+        <div class="col-md-4 col-sm-4 col-12 text-center">
+            <mat-card class="recovered">
+                <h2><b>RECOVERED</b></h2>
+                <br>
+                <h1 class="recovered-color"><b>{{dataShow?.states[stateIndex]?.recovered[index]}}</b></h1>
+            </mat-card>
+        </div>
+        <div class="col-md-4 col-sm-4 col-12 text-center">
+            <mat-card class="deceased">
+                <h2><b>DECEASED</b></h2>
+                <br>
+                <h1 class="deceased-color"><b>{{dataShow?.states[stateIndex]?.deceased[index]}}</b></h1>
+            </mat-card>
+        </div>
+    </div>
+    <h2>
+        <b>{{title}}</b>
+    </h2>
+    <div class="row body">
+        <div class="col-md-12 col-sm-12 col-12">
+            <mat-radio-group aria-label="Select an option">
+                <mat-radio-button value="confirmed" color="primary" (click)="updateBarChart('Confirmed')" checked>Confirmed</mat-radio-button>
+                <mat-radio-button value="recovered" color="primary" (click)="updateBarChart('Recovered')">Recovered</mat-radio-button>
+                <mat-radio-button value="deceased" color="primary" (click)="updateBarChart('Deceased')">Deceased</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="col-md-12 col-sm-12 col-12">
+            <canvas id="barChart"></canvas>
+        </div>
+    </div>
+
+    <h2>
+        <b>Date Wise Cases in {{state}}</b>
+    </h2>
+    <div class="row body">
+        <div class="col-md-12 col-sm-12 col-12">
+            <div class="mat-elevation-z8 text-left">
+                <table mat-table [dataSource]="dateWiseCasesTableSource" matSort>
+
+                  <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef> Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="confirmed">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Confirmed </th>
+                    <td mat-cell *matCellDef="let element"> {{element.confirmed}} </td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="recovered">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Recovered </th>
+                    <td mat-cell *matCellDef="let element"> {{element.recovered}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="deceased">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Deceased </th>
+                    <td mat-cell *matCellDef="let element"> {{element.deceased}} </td>
+                  </ng-container>
+              
+                  <tr mat-header-row *matHeaderRowDef="dateWiseCasesTable"></tr>
+                  <tr mat-row *matRowDef="let row; columns: dateWiseCasesTable;"></tr>
+                </table>
+              
+                <mat-paginator [pageSizeOptions]="[20, 50, 100]" showFirstLastButtons></mat-paginator>
+              </div>
+        </div>
+    </div>
+
+</div>
+
+

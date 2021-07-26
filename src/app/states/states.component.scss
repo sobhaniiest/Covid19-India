@@ -1,5 +1,9 @@
-.india {
+.state {
     padding: 30px;
+}
+
+.state-select-dropdown {
+    width: 250px;
 }
 
 h1, h2, h3 {
@@ -58,30 +62,12 @@ mat-card {
     margin-left: 16px;
 }
 
-.btn-piBlock {
-    margin: 0px 20px 20px 20px;
-    padding: 0px 25px;
-}
-
-.btn-piechart {
-    background-color: #C5E3EC;
-    border: 1px solid #54c8ff;
-}
-
-#pieChart {
-    margin-top: 0px !important;
-}
-
 table {
     width: 100%;
 }
 
 th.mat-sort-header-sorted {
     color: black;
-}
-
-#pieChart {
-    margin: 20px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -92,7 +78,7 @@ th.mat-sort-header-sorted {
 }
 
 @media screen and (max-width: 425px) {
-    .india {
+    .state {
         padding: 10px 5px !important;
     }
     .body {
@@ -106,4 +92,5 @@ th.mat-sort-header-sorted {
     .mat-elevation-z8 {
         overflow: scroll;
     }
+    
 }

@@ -1,70 +1,77 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators'
-import { TotalData } from './data';
+import { Observable, Subject } from 'rxjs';
+import { TotalData } from './data-model';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
-
 export class DataFetchService {
 
-  private DataUrl = `https://api.covid19india.org/csv/latest/state_wise_daily.csv`;
-  
-  d : number = 0;
-  date = [];
-  confirmedtable : number[][];
-  recoveredtable : number[][];
-  deceasedtable : number[][];
-  
-  constructor(private http: HttpClient) { }
+	private dataUrl = `https://api.covid19india.org/csv/latest/state_wise_daily.csv`;
 
-  getTotalData() {
-    return this.http.get(this.DataUrl, { responseType: 'text' })
-    .pipe(
-      map(result => {
-        this.confirmedtable = [];
-        for(var i: number = 0; i < 38; i++) {
-          this.confirmedtable[i] = [];
-        }
-        this.recoveredtable = [];
-        for(var i: number = 0; i < 38; i++) {
-          this.recoveredtable[i] = [];
-        }
-        this.deceasedtable = [];
-        for(var i: number = 0; i < 38; i++) {
-          this.deceasedtable[i] = [];
-        }
-        this.date = [];
+	private data: TotalData = { date: [], states: [], totalConfirmed: [], totalDeceased: [], totalRecovered: [], totalActive: [] };
+	private index: number = 0;
+	emitData = new Subject<TotalData>();
 
-        let data: TotalData[] = [];
-        let rows = result.split('\n');
-        rows.splice(0, 1);
-        rows.forEach(row=>{
-          let cols = row.split(',')
+	constructor(private http: HttpClient) { }
 
-          if (this.d%3 == 0)
-          this.date.push(cols[1])
+	private callDataAPI(): Observable<any> {
+		return this.http.get(this.dataUrl, { responseType: 'text' });
+	}
 
-          this.d += 1;
+	getData() {
+		this.callDataAPI()
+			.subscribe(res => {
+				this.data = { date: [], states: [], totalConfirmed: [], totalDeceased: [], totalRecovered: [], totalActive: [] };
+				for (let i = 0; i < 39; i++) {
+					this.data.states.push({ confirmed: [], recovered: [], deceased: [] });
+				}
 
-          for (var i = 0; i < 38; i++) {
-            if(cols[2] === "Confirmed") {
-              this.confirmedtable[i].push(+cols[i+3])
-            }
-            else if (cols[2] === "Recovered") {
-              this.recoveredtable[i].push(+cols[i+3])
-            } else {
-                this.deceasedtable[i].push(+cols[i+3])
-            }
-          }
-        })
-        data.push({date : this.date, 
-                  confirm : this.confirmedtable, 
-                  recover : this.recoveredtable, 
-                  decease : this.deceasedtable})
-        return data;
-      })
-    )
-  }
+				let rows = res.split('\n');
+				rows.splice(0, 1);
+				
+				for (let row of rows) {
+					let cols = row.split(',');
+					if (this.index % 3 === 0) {
+						this.data.date?.push(cols[1]);
+					}
+					if (cols[2] === 'Confirmed') {
+						for (let i = 3; i < 42; i++) {
+							this.data.states[i - 3].confirmed?.push(+cols[i]);
+						}
+					}
+					if (cols[2] === 'Recovered') {
+						for (let i = 3; i < 42; i++) {
+							this.data.states[i - 3].recovered?.push(+cols[i]);
+						}
+					}
+					if (cols[2] === 'Deceased') {
+						for (let i = 3; i < 42; i++) {
+							this.data.states[i - 3].deceased?.push(+cols[i]);
+						}
+					}
+					this.index++;
+				}
+
+				for (let s of this.data.states) {
+					let tc = 0, tr = 0, td = 0;
+					for (let i = 0; i < s.confirmed.length; i++) {
+						tc += s.confirmed[i];
+						tr += s.recovered[i];
+						td += s.deceased[i];
+					}
+					this.data.totalConfirmed.push(tc);
+					this.data.totalRecovered.push(tr);
+					this.data.totalDeceased.push(td);
+					this.data.totalActive.push(tc - (tr + td));
+				}
+
+				this.emitData.next({ ...this.data });
+			},
+			error => {
+
+			});
+	}
 }
+

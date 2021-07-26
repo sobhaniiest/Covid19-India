@@ -3,8 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  cache: 'this is 2nd attempt for qa'
+  production: false
 };
 
 /*
