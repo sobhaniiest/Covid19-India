@@ -1,5 +1,6 @@
 .state {
     padding: 30px;
+    margin-bottom: 0px;
 }
 
 .state-select-dropdown {
@@ -77,7 +78,7 @@ th.mat-sort-header-sorted {
     }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 450px) {
     .state {
         padding: 10px 5px !important;
     }

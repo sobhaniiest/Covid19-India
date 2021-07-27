@@ -26,28 +26,27 @@ export class IndiaComponent implements OnInit, OnDestroy {
 	Highcharts: typeof Highcharts = Highcharts;
 	chartMap: Highcharts.Options;
 
-	states = States;
+	public states: string[] = States;
 	private subscription: Subscription;
 	public dataShow: any;
 	public index: number = 0;
 
-	dateWiseCasesData: DateTableElement[] = [];
-	dateWiseCasesTable: string[] = ['position', 'date', 'confirmed', 'recovered', 'deceased'];
-	dateWiseCasesTableSource = new MatTableDataSource<DateTableElement>(this.dateWiseCasesData);
+	private dateWiseCasesData: DateTableElement[] = [];
+	public dateWiseCasesTable: string[] = ['position', 'date', 'confirmed', 'recovered', 'deceased'];
+	public dateWiseCasesTableSource = new MatTableDataSource<DateTableElement>(this.dateWiseCasesData);
 
-	stateWiseCasesData: StateTableElement[] = [];
-	stateWiseCasesTable: string[] = ['position', 'state', 'confirmed', 'recovered', 'deceased', 'active'];
-	stateWiseCasesTableSource = new MatTableDataSource<StateTableElement>(this.stateWiseCasesData);
+	private stateWiseCasesData: StateTableElement[] = [];
+	public stateWiseCasesTable: string[] = ['position', 'state', 'confirmed', 'recovered', 'deceased', 'active'];
+	public stateWiseCasesTableSource = new MatTableDataSource<StateTableElement>(this.stateWiseCasesData);
 
 	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 	@ViewChild(MatSort, { static: true }) sort: MatSort;
 
 	private BarChart: any;
-	public PieChart: any;
+	private PieChart: any;
 	private color: string[] = []
-	private datatable: number[] = [];
+	private dataTable: number[] = [];
 	public title: string = '';
-	public stateTitle: string = '';
 	public piBlock: number = 5;
 	public piStatus: string = 'Confirmed';
 
@@ -88,26 +87,23 @@ export class IndiaComponent implements OnInit, OnDestroy {
 		})
 	}
 
-
-
 	ngOnDestroy() {
-		console.log('destroy')
 		this.subscription.unsubscribe();
 	}
 
-	initMap(status: string) {
-		this.datatable = [];
+	private initMap(status: string) {
+		this.dataTable = [];
 		if (status == 'Confirmed') {
-		  this.datatable = [...this.dataShow.totalConfirmed].slice(1);
+		  this.dataTable = [...this.dataShow.totalConfirmed].slice(1);
 		}
 		if (status == 'Deceased') {
-		  this.datatable = [...this.dataShow.totalDeceased].slice(1);
+		  this.dataTable = [...this.dataShow.totalDeceased].slice(1);
 		}
 		if (status == 'Recovered') {
-		  this.datatable = [...this.dataShow.totalRecovered].slice(1);
+		  this.dataTable = [...this.dataShow.totalRecovered].slice(1);
 		}
 		if (status == 'Active') {
-		  this.datatable = [...this.dataShow.totalActive].slice(1);
+		  this.dataTable = [...this.dataShow.totalActive].slice(1);
 		}
 		this.chartMap = {
 		  chart: {
@@ -156,72 +152,72 @@ export class IndiaComponent implements OnInit, OnDestroy {
 			},
 			allAreas: false,
 			data: [
-			  ['andaman and nicobar', this.datatable[0]],
-			  ['andhra pradesh', this.datatable[1]],
-			  ['arunanchal pradesh', this.datatable[2]],
-			  ['assam', this.datatable[3]],  
-			  ['bihar', this.datatable[4]],
-			  ['chandigarh', this.datatable[5]],
-			  ['chhattisgarh', this.datatable[6]],
-			  ['dadara and nagar havelli', this.datatable[7]],
-			  ['daman and diu', this.datatable[8]],
-			  ['nct of delhi', this.datatable[9]],
-			  ['goa', this.datatable[10]],
-			  ['gujarat', this.datatable[11]],
-			  ['haryana', this.datatable[12]],
-			  ['himachal pradesh', this.datatable[13]],
-			  ['jammu and kashmir', this.datatable[14]],
-			  ['jharkhand', this.datatable[15]],
-			  ['karnataka', this.datatable[16]],
-			  ['kerala', this.datatable[17]],
-			  ['lakshadweep', this.datatable[19]],
-			  ['madhya pradesh', this.datatable[20]],
-			  ['maharashtra', this.datatable[21]],
-			  ['manipur', this.datatable[22]],
-			  ['meghalaya', this.datatable[23]],
-			  ['mizoram', this.datatable[24]],
-			  ['nagaland', this.datatable[25]],
-			  ['odisha', this.datatable[26]],
-			  ['puducherry', this.datatable[27]],
-			  ['punjab', this.datatable[28]],
-			  ['rajasthan', this.datatable[29]],
-			  ['sikkim', this.datatable[30]],
-			  ['tamil nadu', this.datatable[31]],
-			  ['telangana', this.datatable[32]],
-			  ['tripura', this.datatable[33]],
-			  ['uttar pradesh', this.datatable[34]],
-			  ['uttarakhand', this.datatable[35]],
-			  ['west bengal', this.datatable[36]]
+			  ['andaman and nicobar', this.dataTable[0]],
+			  ['andhra pradesh', this.dataTable[1]],
+			  ['arunanchal pradesh', this.dataTable[2]],
+			  ['assam', this.dataTable[3]],  
+			  ['bihar', this.dataTable[4]],
+			  ['chandigarh', this.dataTable[5]],
+			  ['chhattisgarh', this.dataTable[6]],
+			  ['dadara and nagar havelli', this.dataTable[7]],
+			  ['daman and diu', this.dataTable[8]],
+			  ['nct of delhi', this.dataTable[9]],
+			  ['goa', this.dataTable[10]],
+			  ['gujarat', this.dataTable[11]],
+			  ['haryana', this.dataTable[12]],
+			  ['himachal pradesh', this.dataTable[13]],
+			  ['jammu and kashmir', this.dataTable[14]],
+			  ['jharkhand', this.dataTable[15]],
+			  ['karnataka', this.dataTable[16]],
+			  ['kerala', this.dataTable[17]],
+			  ['lakshadweep', this.dataTable[19]],
+			  ['madhya pradesh', this.dataTable[20]],
+			  ['maharashtra', this.dataTable[21]],
+			  ['manipur', this.dataTable[22]],
+			  ['meghalaya', this.dataTable[23]],
+			  ['mizoram', this.dataTable[24]],
+			  ['nagaland', this.dataTable[25]],
+			  ['odisha', this.dataTable[26]],
+			  ['puducherry', this.dataTable[27]],
+			  ['punjab', this.dataTable[28]],
+			  ['rajasthan', this.dataTable[29]],
+			  ['sikkim', this.dataTable[30]],
+			  ['tamil nadu', this.dataTable[31]],
+			  ['telangana', this.dataTable[32]],
+			  ['tripura', this.dataTable[33]],
+			  ['uttar pradesh', this.dataTable[34]],
+			  ['uttarakhand', this.dataTable[35]],
+			  ['west bengal', this.dataTable[36]]
 			]
 		  } as Highcharts.SeriesMapOptions]
 		};
 		
 	  }
 
-	updateBarChart(status: string) {
+	public updateBarChart(status: string) {
 		this.initbBarChart(status);
 	}
 
-	initbBarChart(status: string) {
-		this.datatable = [];
+	private initbBarChart(status: string) {
+		this.dataTable = [];
 		if (status == 'Confirmed') {
 			this.title = 'Daily Confirmed Cases';
-			this.datatable = [...this.dataShow.states[0].confirmed];
+			this.dataTable = [...this.dataShow.states[0].confirmed];
 			this.createBarChart();
 		}
 		if (status == 'Recovered') {
 			this.title = 'Daily Recovered Cases';
-			this.datatable = [...this.dataShow.states[0].recovered];
+			this.dataTable = [...this.dataShow.states[0].recovered];
 			this.createBarChart();
 		}
 		if (status == 'Deceased') {
 			this.title = 'Daily Deceased Cases';
-			this.datatable = [...this.dataShow.states[0].deceased];
+			this.dataTable = [...this.dataShow.states[0].deceased];
 			this.createBarChart();
 		}
 	}
 
-	createBarChart() {
+	private createBarChart() {
 		if (this.BarChart != undefined)
 			this.BarChart.destroy();
 		this.BarChart = new Chart('barChart', {
@@ -230,7 +226,7 @@ export class IndiaComponent implements OnInit, OnDestroy {
 				labels: this.dataShow.date,
 				datasets: [{
 					label: 'No. of Cases',
-					data: this.datatable,
+					data: this.dataTable,
 					backgroundColor: 'rgba(54, 162, 245, 0.2)',
 					borderColor: 'rgba(54, 162, 255, 1)',
 					borderWidth: 1
@@ -251,7 +247,7 @@ export class IndiaComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	updatePieChart(status: string, piBlock: number) {
+	public updatePieChart(status: string, piBlock: number) {
 		if (status != '')
 			this.piStatus = status;
 		if (piBlock != 0)
@@ -260,41 +256,40 @@ export class IndiaComponent implements OnInit, OnDestroy {
 		this.initMap(this.piStatus);
 	}
 
-	initPieChart(status: string, piBlock: number) {
-		this.datatable = [];
+	private initPieChart(status: string, piBlock: number) {
+		this.dataTable = [];
 		if (status == 'Confirmed') {
-			this.datatable = [...this.dataShow.totalConfirmed];
+			this.dataTable = [...this.dataShow.totalConfirmed];
 			this.createPieChart();
 		}
 		if (status == 'Deceased') {
-			this.datatable = [...this.dataShow.totalDeceased];
+			this.dataTable = [...this.dataShow.totalDeceased];
 			this.createPieChart();
 		}
 		if (status == 'Recovered') {
-			this.datatable = [...this.dataShow.totalRecovered];
+			this.dataTable = [...this.dataShow.totalRecovered];
 			this.createPieChart();
 		}
 		if (status == 'Active') {
-			this.datatable = [...this.dataShow.totalActive];
+			this.dataTable = [...this.dataShow.totalActive];
 			this.createPieChart();
 		}
 	}
 
-	dynamicColors() {
+	private dynamicColors() {
 		var r = Math.floor(Math.random() * 255);
 		var g = Math.floor(Math.random() * 255);
 		var b = Math.floor(Math.random() * 255);
 		return "rgb(" + r + "," + g + "," + b + ")";
 	}
 
-	createPieChart() {
-		console.log(this.datatable)
-		let piTable: number[] = [...this.datatable];
+	private createPieChart() {
+		let piTable: number[] = [...this.dataTable];
 		piTable.sort(function (a, b) { return b - a });
 		let piStates: string[] = [];
 		for (let i = 1; i <= this.piBlock; i++) {
 			this.color.push(this.dynamicColors());
-			piStates.push(this.states[this.datatable.indexOf(piTable[i]) - 1]);
+			piStates.push(this.states[this.dataTable.indexOf(piTable[i]) - 1]);
 		}
 
 		if (this.PieChart != undefined)

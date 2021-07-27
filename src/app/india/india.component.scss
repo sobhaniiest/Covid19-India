@@ -1,5 +1,13 @@
+#spinner {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .india {
     padding: 30px;
+    margin-bottom: 0px;
 }
 
 h1, h2, h3 {
@@ -80,10 +88,6 @@ th.mat-sort-header-sorted {
     color: black;
 }
 
-#pieChart {
-    margin: 20px;
-}
-
 @media only screen and (max-width: 768px) {
     .confirmed, .recovered, .deceased, .active {
         font-size: 18px !important;
@@ -91,7 +95,7 @@ th.mat-sort-header-sorted {
     }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 450px) {
     .india {
         padding: 10px 5px !important;
     }

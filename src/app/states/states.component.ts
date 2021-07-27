@@ -22,9 +22,9 @@ export class StatesComponent implements OnInit, OnDestroy {
 	public dataShow: any;
 	public index: number = 0;
 
-	dateWiseCasesData: DateTableElement[] = [];
-	dateWiseCasesTable: string[] = ['position', 'date', 'confirmed', 'recovered', 'deceased'];
-	dateWiseCasesTableSource = new MatTableDataSource<DateTableElement>(this.dateWiseCasesData);
+	private dateWiseCasesData: DateTableElement[] = [];
+	public dateWiseCasesTable: string[] = ['position', 'date', 'confirmed', 'recovered', 'deceased'];
+	public dateWiseCasesTableSource = new MatTableDataSource<DateTableElement>(this.dateWiseCasesData);
 
 	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 	@ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -58,7 +58,7 @@ export class StatesComponent implements OnInit, OnDestroy {
 		})
 	}
 
-	onStateChange() {
+	public onStateChange() {
 		this.stateIndex = this.states.indexOf(this.state) + 1;
 		for (let i = 0; i <= this.index; i++) {
 			this.dateWiseCasesData[i] = ({
@@ -78,11 +78,11 @@ export class StatesComponent implements OnInit, OnDestroy {
 		this.subscription.unsubscribe();
 	}
 
-	updateBarChart(status: string) {
+	public updateBarChart(status: string) {
 		this.initbBarChart(status);
 	}
 
-	initbBarChart(status: string) {
+	private initbBarChart(status: string) {
 		this.datatable = [];
 		if (status == 'Confirmed') {
 			this.title = 'Daily Confirmed Cases';
@@ -101,7 +101,7 @@ export class StatesComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	createBarChart() {
+	private createBarChart() {
 		if (this.BarChart != undefined)
 			this.BarChart.destroy();
 		this.BarChart = new Chart('barChart', {

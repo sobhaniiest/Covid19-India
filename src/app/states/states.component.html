@@ -3,7 +3,7 @@
         <b>Visualize Covid-19 in All States and Union Territories</b>
     </h1>
     <br>
-    <mat-form-field appearance="outline" class="state-select-dropdown">
+    <mat-form-field appearance="outline" class="state-select-dropdown" color="primary">
         <mat-label>Select State or Union Territory</mat-label>
         <mat-select [(ngModel)]="state" (selectionChange)="onStateChange()">
         <div *ngFor="let s of states;">
