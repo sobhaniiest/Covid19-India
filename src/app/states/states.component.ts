@@ -30,7 +30,7 @@ export class StatesComponent implements OnInit, OnDestroy {
 	@ViewChild(MatSort, { static: true }) sort: MatSort;
 
 	private BarChart: any;
-	private datatable: number[] = [];
+	private dataTable: number[] = [];
 	public title: string = '';
 
 	constructor(public dataService: DataFetchService) { }
@@ -83,20 +83,20 @@ export class StatesComponent implements OnInit, OnDestroy {
 	}
 
 	private initbBarChart(status: string) {
-		this.datatable = [];
+		this.dataTable = [];
 		if (status == 'Confirmed') {
 			this.title = 'Daily Confirmed Cases';
-			this.datatable = this.dataShow.states[this.stateIndex].confirmed;
+			this.dataTable = this.dataShow.states[this.stateIndex].confirmed;
 			this.createBarChart();
 		}
 		if (status == 'Recovered') {
 			this.title = 'Daily Recovered Cases';
-			this.datatable = this.dataShow.states[this.stateIndex].recovered;
+			this.dataTable = this.dataShow.states[this.stateIndex].recovered;
 			this.createBarChart();
 		}
 		if (status == 'Deceased') {
 			this.title = 'Daily Deceased Cases';
-			this.datatable = this.dataShow.states[this.stateIndex].deceased;
+			this.dataTable = this.dataShow.states[this.stateIndex].deceased;
 			this.createBarChart();
 		}
 	}
@@ -110,7 +110,7 @@ export class StatesComponent implements OnInit, OnDestroy {
 				labels: this.dataShow.date,
 				datasets: [{
 					label: 'No. of Cases',
-					data: this.datatable,
+					data: this.dataTable,
 					backgroundColor: 'rgba(54, 162, 245, 0.2)',
 					borderColor: 'rgba(54, 162, 255, 1)',
 					borderWidth: 1
