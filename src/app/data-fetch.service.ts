@@ -8,7 +8,7 @@ import { TotalData } from './data-model';
 })
 export class DataFetchService {
 
-	private dataUrl = `https://api.covid19india.org/csv/latest/state_wise_daily.csv`;
+	private dataUrl = `https://data.covid19india.org/csv/latest/state_wise_daily.csv`;
 
 	private data: TotalData = { date: [], states: [], totalConfirmed: [], totalDeceased: [], totalRecovered: [], totalActive: [] };
 	private index: number = 0;
